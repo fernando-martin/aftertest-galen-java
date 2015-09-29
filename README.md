@@ -1,5 +1,9 @@
 # galen-poc
 
+## Dependencies
+* Maven 3.0.5
+* Ant 1.9.3
+
 ## Quick start
 
 * Init project

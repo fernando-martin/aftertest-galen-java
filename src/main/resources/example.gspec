@@ -1,20 +1,23 @@
 # Declaring objects
+
 @objects
-        header      id        header
-        content     id        content
-        menu-item-*     css     #menu li a
+    header  id    header
+    content id    content
+    menu-item-*     css     #menu li a
         
 
 # Declaring sections
+
 = Header =
-        header:
-                height 100px
+    header:
+        height 100px
 
 = Menu =
-        menu-item-*:
-               count any menu-item-* is 4
+    menu-item-*:
+        count any menu-item-* is 4
+
 = Content =
-        content:
-                text is "Content"
+    content:
+        text is "Content"
                 
 
