@@ -1,0 +1,20 @@
+# Declaring objects
+@objects
+        header      id        header
+        content     id        content
+        menu-item-*     css     #menu li a
+        
+
+# Declaring sections
+= Header =
+        header:
+                height 100px
+
+= Menu =
+        menu-item-*:
+               count any menu-item-* is 4
+= Content =
+        content:
+                text is "Content"
+                
+
