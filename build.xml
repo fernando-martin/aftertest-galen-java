@@ -1,10 +1,11 @@
 <project name="Galen After Test" default="init">
 
-    <property name="tab" value="&#x0009;"/>
+    <property name="chromeDriverVersion" value="2.19"/>
     <property name="seleniumServerVersion" value="2.46"/>
+    <property name="chromedriverName" value="chromedriver_linux64.zip"/>
     <property name="libDir" value="lib"/>
 
-    <target name="init" description="Init project" depends="set-up, selenium-server-download"/>
+    <target name="init" description="Init project" depends="setup, chromedriver-download, selenium-server-download"/>
 
     <!-- Reset tasks -->
     <target name="clean" description="Reset project">
@@ -12,6 +13,18 @@
         <delete>
             <fileset dir="${libDir}" includes="**/*"/>
         </delete>
+    </target>
+
+    <target name="chromedriver-download" depends="setup">
+        <echo message="Downloading chromedriver ${chromeDriverVersion}"/>
+        <get taskname="chromedriver-download"
+             src="http://chromedriver.storage.googleapis.com/${chromeDriverVersion}/${chromedriverName}"
+             dest="${libDir}"
+             skipexisting="true"/>
+
+        <unzip src="${libDir}/${chromedriverName}" dest="${libDir}"/>
+        <delete file="${libDir}/${chromedriverName}"/>
+        <chmod file="${libDir}/chromedriver" perm="+x"/>
     </target>
 
     <target name="selenium-server-start" description="Start selenium server" depends="selenium-server-download">
@@ -36,7 +49,7 @@
              skipexisting="true"/>
     </target>
 
-    <target name="set-up">
+    <target name="setup">
         <mkdir dir="${libDir}"/>
     </target>
 

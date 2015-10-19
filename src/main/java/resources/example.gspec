@@ -1,0 +1,31 @@
+# Declaring objects
+
+@objects
+    header    id    header
+    content    id    content
+    menu-item-*    css    #menu li a
+        
+
+# Declaring sections
+
+= Header =
+    header:
+        height 100px
+
+= Menu =
+    menu-item-*:
+        count any menu-item-* is 4
+        height 50px
+
+    @for [1 - 4] as index
+        menu-item-${index}:
+            text is "Item ${index}"
+
+    @forEach [menu-item-*] as itemName, next as nextItem
+        ${itemName}:
+            aligned horizontally all ${nextItem}
+
+= Content =
+    content:
+        text is "Content"
+                

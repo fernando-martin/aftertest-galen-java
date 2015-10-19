@@ -1,14 +1,17 @@
-package galen.poc;
-
 import com.galenframework.testng.GalenTestNgTestBase;
 import galen.poc.devices.Device;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import static java.util.Arrays.asList;
 
@@ -18,7 +21,13 @@ public class AppTest extends GalenTestNgTestBase {
 
     @Override
     public WebDriver createDriver(Object[] args) {
-        WebDriver driver = new FirefoxDriver();
+        WebDriver driver = null;
+        try {
+            driver = new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), DesiredCapabilities.chrome());
+        } catch (MalformedURLException e) {
+            System.err.println("Malformed URL");
+            System.exit(-1);
+        }
         if (args.length > 0) {
             if (args[0] != null && args[0] instanceof Device) {
                 Device device = (Device) args[0];
@@ -31,14 +40,15 @@ public class AppTest extends GalenTestNgTestBase {
     @DataProvider(name = "devices")
     public Object[][] devices() {
         return new Object[][]{
-                {new Device("mobile", new Dimension(1280, 768), asList("mobile"))},
-                {new Device("desktop", new Dimension(1024, 800), asList("desktop"))}
+                {new Device("mobile", new Dimension(640, 960), asList("mobile"))},
+                {new Device("tablet", new Dimension(1024, 768), asList("tablet"))},
+                {new Device("desktop", new Dimension(1280, 1024), asList("desktop"))}
         };
     }
 
     @Test(dataProvider = "devices")
     public void exampleTest(Device device) throws IOException {
         load(url);
-        checkLayout("src/main/resources/example.gspec", device.getTags());
+        checkLayout("src/main/java/resources/example.gspec", device.getTags());
     }
 }
