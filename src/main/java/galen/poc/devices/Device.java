@@ -1,18 +1,18 @@
 package galen.poc.devices;
 
-import org.openqa.selenium.Dimension;
-
 import java.util.List;
 
 public class Device {
 
     private final String name;
-    private final Dimension screenSize;
+    private final int width;
+    private final int height;
     private final List<String> tags;
 
-    public Device(String name, Dimension screenSize, List<String> tags) {
+    public Device(String name, int width, int height, List<String> tags) {
         this.name = name;
-        this.screenSize = screenSize;
+        this.width = width;
+        this.height = height;
         this.tags = tags;
     }
 
@@ -20,8 +20,11 @@ public class Device {
         return name;
     }
 
-    public Dimension getScreenSize() {
-        return screenSize;
+    public int getWidth() {
+        return width;
+    }
+    public int getHeight() {
+        return height;
     }
 
     public List<String> getTags() {

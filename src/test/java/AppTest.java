@@ -1,9 +1,6 @@
 import com.galenframework.testng.GalenTestNgTestBase;
 import galen.poc.devices.Device;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.DataProvider;
@@ -28,27 +25,21 @@ public class AppTest extends GalenTestNgTestBase {
             System.err.println("Malformed URL");
             System.exit(-1);
         }
-        if (args.length > 0) {
-            if (args[0] != null && args[0] instanceof Device) {
-                Device device = (Device) args[0];
-                driver.manage().window().setSize(device.getScreenSize());
-            }
-        }
         return driver;
     }
 
     @DataProvider(name = "devices")
     public Object[][] devices() {
         return new Object[][]{
-                {new Device("mobile", new Dimension(640, 960), asList("mobile"))},
-                {new Device("tablet", new Dimension(1024, 768), asList("tablet"))},
-                {new Device("desktop", new Dimension(1280, 1024), asList("desktop"))}
+                {new Device("mobile", 640, 960, asList("mobile"))},
+                {new Device("tablet", 1024, 768, asList("tablet"))},
+                {new Device("desktop", 1280, 1024, asList("desktop"))}
         };
     }
 
     @Test(dataProvider = "devices")
     public void exampleTest(Device device) throws IOException {
-        load(url);
+        load(url, device.getWidth(), device.getHeight());
         checkLayout("src/main/java/resources/example.gspec", device.getTags());
     }
 }
