@@ -16,8 +16,6 @@ import static java.util.Arrays.asList;
 
 public class AppTest extends GalenTestNgTestBase {
 
-    private final String url = "http://samples.galenframework.com/tutorial1/tutorial1.html";
-
     @Override
     public WebDriver createDriver(Object[] args) {
         WebDriver driver = null;
@@ -41,6 +39,8 @@ public class AppTest extends GalenTestNgTestBase {
 
     @Test(dataProvider = "devices")
     public void exampleTest(Device device) throws IOException {
+        String url = "http://samples.galenframework.com/tutorial1/tutorial1.html";
+
         load(url, device.getSize().getWidth(), device.getSize().getHeight());
         checkLayout("src/main/java/resources/example.gspec", device.getTags());
     }

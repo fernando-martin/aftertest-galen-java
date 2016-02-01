@@ -13,10 +13,9 @@
         height 100px
 
 = Menu =
-    menu-item-*:
+    global:
         count any menu-item-* is 4
-        height 50px
-
+    
     @for [1 - 4] as index
         menu-item-${index}:
             text is "Item ${index}"
@@ -27,5 +26,4 @@
 
 = Content =
     content:
-        text is "Content"
-                
+        css background-color is "rgba(240, 240, 208, 1)"
