@@ -1,4 +1,4 @@
-package galen.poc.devices;
+package domain;
 
 import org.openqa.selenium.Dimension;
 
